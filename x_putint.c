@@ -10,6 +10,7 @@ int x_putint(int y)
 
 	if (y < 0)
 	{
+		x = 0;
 		x += x_putchar('-');
 		y = -y;
 	}
