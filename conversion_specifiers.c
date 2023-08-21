@@ -22,12 +22,12 @@ int print_binary(va_list types, char buffer[], int flags,
 	NOT_USED(precision);
 	NOT_USED(size);
 
-	b = va_arg(types, unsigned int);
-	a = 2147483648;
-	c[0] = b / a;
+	a = va_arg(types, unsigned int);
+	b = 2147483648;
+	c[0] = a / b;
 	for (i = 1; i < 32; i++)
 	{
-		a /= 2;
+		b /= 2;
 		c[i] = (b >> (31 - i)) & 1;
 	}
 	for (i = 0, sum = 0, count = 0; i < 32; i++)
