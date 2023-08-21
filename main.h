@@ -8,5 +8,9 @@ int _printf(const char *format, ...);
 int x_putchar(char ch);
 int x_putint(int y);
 int x_putstr(char *str);
+int print_binary(va_list types, char buffer[], int flags, int width, int precision, int size);
+
+#define NOT_USED(x) (void)(x)
+#define BUFF_SIZE 1024
 
 #endif
