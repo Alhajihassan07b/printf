@@ -1,58 +1,47 @@
 #include "main.h"
+#include <limits.h>
+#include <stdio.h>
+
 /**
- * _printf - a function that produces output according to a format.
- * @format: character string, composed of zero or more directives.
- *
- * Return: Number of characters printed, excluding '\0'.
+ * _printf - produces output according to a format
+ * @format: format string containing the characters and the specifiers
+ * Description: this function will call the get_print() function that will
+ * determine which printing function to call depending on the conversion
+ * specifiers contained into fmt
+ * Return: length of the formatted output string
  */
 int _printf(const char *format, ...)
 {
-	unsigned int x, p = 0, y = 0, count;
-
+	int (*pfunc)(va_list, flags_t *);
+	const char *p;
 	va_list xy;
-	va_start(xy, format);
+	flags_t flags = {0, 0, 0};
 
+	register int count = 0;
+
+	va_start(xy, format);
 	if (!format)
 		return (-1);
-	for (x = 0; format[x] != '\0'; x++)
+	for (p = format; *p; p++)
 	{
-		if (format[x] != '%')
+		if (*p == '%')
 		{
-		x_putchar(format[x]);
-		p++;
-		}
-		else if (format[x + 1] == 'c')
-		{
-			x_putchar(va_arg(xy, int));
-			x++;
 			p++;
-		}
-		else if (format[x + 1] == 's')
-		{
-			char *str = va_arg(xy, char *);
-			if (str == NULL)
-				str = "(null)";
-			count = x_putchar(str[x]);
-			p += count;
-			x++;
-		}
-		else if(format[x + 1] == '%')
-		{
-			x_putchar('%');
-			x++;
-			p++;
-		}
-		else if (format[x + 1] == 'd' || format[x + 1] == 'i')
-		{
-			y += x_putchar(va_arg(xy, int));
-			x++;
-			p += y;
-		}
-		else
-		{
-		x_putchar('%');
-		p++;
-		} p += 1;
-	} va_end(xy);
-	return (p);
+			if (*p == '%')
+			{
+				count += _putchar('%');
+				continue;
+			}
+			while (get_flag(*p, &flags))
+				p++;
+			pfunc = get_print(*p);
+			count += (pfunc)
+				? pfunc(xy, &flags)
+				: _printf("%%%c", *p);
+		} else
+			count += _putchar(*p);
+	}
+	_putchar(-1);
+	va_end(xy);
+	return (count);
 }
