@@ -47,7 +47,7 @@ char *convert(unsigned long int num, int base, int lowercase);
 
 /* _printf */
 int _printf(const char *format, ...);
-<<<<<<< HEAD
+
 
 /* get_print */
 int (*get_print(char s))(va_list, flags_t *);
@@ -73,11 +73,10 @@ int print_address(va_list l, flags_t *f);
 
 /* print_percent */
 int print_percent(va_list l, flags_t *f);
-=======
+
 int x_putchar(char ch);
 int x_putint(int y);
 int x_putstr(char *str);
-int print_binary(va_list types, char buffer[], int flags, int width, int precision, int size);
 
 #define NOT_USED(x) (void)(x)
 #define BUFF_SIZE 1024
