@@ -41,7 +41,7 @@ int _printf(const char *format, ...)
 		} else
 			count += _putchar(*p);
 	}
-	_putchar('\0');
+	_putchar(-1);
 	va_end(xy);
 	return (count);
 }
